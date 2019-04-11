@@ -1,3 +1,6 @@
+#include "board_print_html.h"
+#include "check.h"
+#include "move.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +17,17 @@ int main(int argc, char* argv[])
             {'.', '.', '.', '.', '.', '.', '.', '.'},
             {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
             {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'},
+    };
+
+    int bcheck[8][8] = {
+            {1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1},
     };
 
     FILE* output_html;
@@ -76,7 +90,7 @@ int main(int argc, char* argv[])
             char sw[10], sb[10], str[2];
             fscanf(input, "%s %s %s", str, sw, sb);
             if (strlen(sw) > 0 && strlen(sb) > 0 && strlen(str) > 0)
-                Check(board, str, sw, sb);
+                Check(board, str, sw, sb, bcheck);
         }
         break;
     default:
