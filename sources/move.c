@@ -53,7 +53,7 @@ int BishopTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
         i += kx;
         j += ky;
         if (a[i][j] != '.')
-            return 0;
+            return 3;
     }
     if (a[tx][ty] == '.' && !atk)
         return 1;
