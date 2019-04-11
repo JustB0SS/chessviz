@@ -28,6 +28,8 @@ int main(int argc, char* argv[])
         while (!feof(input)) {
             char sw[10], sb[10], str[2];
             fscanf(input, "%s %s %s", str, sw, sb);
+            if (strlen(sw) > 0 && strlen(sb) > 0 && strlen(str) > 0)
+                Check(board, str, sw, sb, bcheck);
         }
         break;
     default:
