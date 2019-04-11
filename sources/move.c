@@ -1,6 +1,6 @@
 #include "move.h"
 
-int RockTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
+int RookTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
 {
     int x = (tx - fx), y = (ty - fy), k = 1, i;
     if (x == 0) {
@@ -17,6 +17,8 @@ int RockTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
         if (a[tx][ty] != '.' && atk
             && ((wb && a[tx][ty] > 97) || (!wb && a[tx][ty] < 97)))
             return 1;
+        else
+            return 2;
     } else if (y == 0) {
         if (x < 0)
             k = -k;
