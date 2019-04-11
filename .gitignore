@@ -1,9 +1,4 @@
-# IGNORE LIST OF PROJECT FILES
-/chessviz
-testTXT/
-build/*.o
-bin/*.o
-build/*.d
-bin/*.exe
-*.html
 bin/main
+chessviz.html
+build/*
+testTXT/
