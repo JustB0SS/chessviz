@@ -279,7 +279,7 @@ CTEST(pawn_black, first_move2_center_wrong)
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
     };
-    ASSERT_EQUAL(0, PawnTest(board, bcheck, 2, 3, 4, 3, 0, 0));
+    ASSERT_EQUAL(6, PawnTest(board, bcheck, 2, 3, 4, 3, 0, 0));
 }
 
 CTEST(pawn_black, first_move1_center)
@@ -415,7 +415,7 @@ CTEST(pawn_black, wrong_move_2)
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
     };
-    ASSERT_EQUAL(0, PawnTest(board, bcheck, 1, 3, 0, 3, 0, 0));
+    ASSERT_EQUAL(5, PawnTest(board, bcheck, 1, 3, 0, 3, 0, 0));
 }
 
 /*----------------------------PAWN_WHITE----------------------------------*/
@@ -509,7 +509,7 @@ CTEST(pawn_white, first_move2_center_wrong)
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
     };
-    ASSERT_EQUAL(0, PawnTest(board, bcheck, 4, 3, 2, 3, 0, 1));
+    ASSERT_EQUAL(6, PawnTest(board, bcheck, 4, 3, 2, 3, 0, 1));
 }
 
 CTEST(pawn_white, first_move1_center)
@@ -645,7 +645,7 @@ CTEST(pawn_white, wrong_move_2)
             {1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1},
     };
-    ASSERT_EQUAL(0, PawnTest(board, bcheck, 6, 3, 7, 3, 0, 1));
+    ASSERT_EQUAL(5, PawnTest(board, bcheck, 6, 3, 7, 3, 0, 1));
 }
 /*----------------------------BLACK_BISHOP----------------------------------*/
 

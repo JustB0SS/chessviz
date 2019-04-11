@@ -17,6 +17,13 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
             rk = 1;
         }
         break;
+    case 4:
+        if (strcmp(sw, "O-O#") == 0) {
+            rk = 1;
+        } else if (strcmp(sw, "O-O+") == 0) {
+            rk = 1;
+        }
+        break;
     case 5:
         if (strcmp(sw, "O-O-O") == 0) {
             rk = 1;
@@ -56,8 +63,16 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
         fw = 'P';
         break;
     case 6: // type 2
-        if (sw[0] == 'K' || sw[0] == 'Q' || sw[0] == 'R' || sw[0] == 'N'
-            || sw[0] == 'B' || sw[0] == 'P')
+        if (strcmp(sw, "O-O-O#") == 0) {
+            rk = 1;
+            mat = 1;
+            break;
+        } else if (strcmp(sw, "O-O-O+") == 0) {
+            rk = 1;
+            break;
+        } else if (
+                sw[0] == 'K' || sw[0] == 'Q' || sw[0] == 'R' || sw[0] == 'N'
+                || sw[0] == 'B' || sw[0] == 'P')
             fw = sw[0];
         else {
             printf("ERROR expected K Q R N B P found %c\n", sw[0]);
@@ -139,8 +154,6 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
         if (sw[6] == '#')
             mat = 1;
         break;
-    default:
-        exit(1);
     }
     // Black
     if (!mat) {
@@ -150,6 +163,13 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
                 rk = 1;
                 break;
             }
+        case 4:
+            if (strcmp(sb, "O-O#") == 0) {
+                rk = 1;
+            } else if (strcmp(sb, "O-O+") == 0) {
+                rk = 1;
+            }
+            break;
         case 5:
             if (strcmp(sb, "O-O-O") == 0) {
                 rk = 1;
@@ -189,8 +209,16 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
             fb = 'p';
             break;
         case 6: // type 2
-            if (sb[0] == 'K' || sb[0] == 'Q' || sb[0] == 'R' || sb[0] == 'N'
-                || sb[0] == 'B' || sb[0] == 'P')
+            if (strcmp(sb, "O-O-O#") == 0) {
+                rk = 1;
+                mat = 1;
+                break;
+            } else if (strcmp(sb, "O-O-O+") == 0) {
+                rk = 1;
+                break;
+            } else if (
+                    sb[0] == 'K' || sb[0] == 'Q' || sb[0] == 'R' || sb[0] == 'N'
+                    || sb[0] == 'B' || sb[0] == 'P')
                 fb = sb[0] + 32;
             else {
                 printf("ERROR expected K Q R N B P found %c\n", sb[0]);
@@ -270,77 +298,78 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
                 exit(1);
             }
             break;
-        default:
+        }
+    }
+    if (strlen(sw) != 0) {
+        int x = fromxw - 48, y = fromyw - 96, xt = toxw - 48, yt = toyw - 96;
+        x = 8 - x;
+        y--;
+        xt = 8 - xt;
+        yt--;
+        if (rk == 1) {
+            if (LongRock(board, bcheck, 1)) {
+                move = 4;
+            }
+            if (ShortRock(board, bcheck, 1)) {
+                move = 4;
+            }
+        } else if (fw == board[x][y]) {
+            switch (fw) {
+            case 'N':
+                move = KnightTest(board, x, y, xt, yt, attackW, 1);
+                break;
+            case 'B':
+                move = BishopTest(board, x, y, xt, yt, attackW, 1);
+                break;
+            case 'Q':
+                move = QueenTest(board, x, y, xt, yt, attackW, 1);
+                break;
+            case 'K':
+                move = KingTest(board, x, y, xt, yt, attackW, 1);
+                break;
+            case 'R':
+                move = RookTest(board, x, y, xt, yt, attackW, 1);
+                break;
+            case 'P':
+                move = PawnTest(board, bcheck, x, y, xt, yt, attackW, 1);
+                break;
+            }
+        } else {
+            printf("ERROR false figure %c expected %c in string %s%s\n",
+                   board[x][y],
+                   fw,
+                   s,
+                   sw);
             exit(1);
         }
-    }
-    int x = fromxw - 48, y = fromyw - 96, xt = toxw - 48, yt = toyw - 96;
-    x = 8 - x;
-    y--;
-    xt = 8 - xt;
-    yt--;
-    if (rk == 1) {
-        if (LongRock(board, bcheck, 1)) {
-            move = 4;
-        }
-        if (ShortRock(board, bcheck, 1)) {
-            move = 4;
-        }
-    } else if (fw == board[x][y]) {
-        switch (fw) {
-        case 'N':
-            move = KnightTest(board, x, y, xt, yt, attackW, 1);
+        switch (move) {
+        case 0:
+            printf("ERROR wrong move in string %s%s\n", s, sw);
             break;
-        case 'B':
-            move = BishopTest(board, x, y, xt, yt, attackW, 1);
+        case 1:
+            board[x][y] = '.';
+            board[xt][yt] = fw;
+            bcheck[x][y] = 0;
+            bcheck[xt][yt] = 0;
             break;
-        case 'Q':
-            move = QueenTest(board, x, y, xt, yt, attackW, 1);
+        case 2:
+            printf("ERROR wrong move or attack  in string %s%s\n", s, sw);
             break;
-        case 'K':
-            move = KingTest(board, x, y, xt, yt, attackW, 1);
+        case 3:
+            printf("ERROR on path find enemy  in string %s%s\n", s, sw);
             break;
-        case 'R':
-            move = RookTest(board, x, y, xt, yt, attackW, 1);
+        case 5:
+            printf("ERROR wrong order of move in string %s%s\n", s, sw);
             break;
-        case 'P':
-            move = PawnTest(board, bcheck, x, y, xt, yt, attackW, 1);
+        case 6:
+            printf("ERROR wrong move of Pawn in string %s%s\n", s, sw);
             break;
         }
-    } else {
-        printf("ERROR false figure %c expected %c in string %s%s\n",
-               board[x][y],
-               fw,
-               s,
-               sw);
-        exit(1);
+        outputHTML(board, s, sw);
     }
-    switch (move) {
-    case 0:
-        printf("ERROR wrong move in string %s%s\n", s, sw);
-        break;
-    case 1:
-        board[x][y] = '.';
-        board[xt][yt] = fw;
-        // bcheck[x][y] = 0;
-        break;
-    case 2:
-        printf("ERROR wrong move or attack  in string %s%s\n", s, sw);
-        break;
-    case 3:
-        printf("ERROR on path find enemy  in string %s%s\n", s, sw);
-        break;
-    case 5:
-        printf("ERROR wrong order of move in string %s%s\n", s, sw);
-        break;
-    case 6:
-        printf("ERROR wrong move of Pawn in string %s%s\n", s, sw);
-        break;
-    }
-    outputHTML(board, s, sw);
-    if (strlen(sb) != 0 && !mat) {
-        move = 1;
-        x = fromxb - 48, y = fromyb - 96, xt = toxb - 48, yt = toyb - 96;
+    if (strlen(sb) != 0) {
+        move = 0;
+        int x = fromxb - 48, y = fromyb - 96, xt = toxb - 48, yt = toyb - 96;
         x = 8 - x;
         y--;
         xt = 8 - xt;
@@ -388,8 +417,8 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
         case 1:
             board[x][y] = '.';
             board[xt][yt] = fb;
-            // bcheck[x][y] = 0;
-            // bcheck[xt][yt] = 0;
+            bcheck[x][y] = 0;
+            bcheck[xt][yt] = 0;
             break;
         case 2:
             printf("ERROR wrong move or attack in string %s%s\n", s, sb);
