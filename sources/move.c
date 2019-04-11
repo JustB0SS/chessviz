@@ -1,6 +1,6 @@
 #include "move.h"
 
-int RockTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
+int RookTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
 {
     int x = (tx - fx), y = (ty - fy), k = 1, i;
     if (x == 0) {
@@ -17,6 +17,8 @@ int RockTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
         if (a[tx][ty] != '.' && atk
             && ((wb && a[tx][ty] > 97) || (!wb && a[tx][ty] < 97)))
             return 1;
+        else
+            return 2;
     } else if (y == 0) {
         if (x < 0)
             k = -k;
@@ -53,7 +55,7 @@ int BishopTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
         i += kx;
         j += ky;
         if (a[i][j] != '.')
-            return 0;
+            return 3;
     }
     if (a[tx][ty] == '.' && !atk)
         return 1;
@@ -201,54 +203,68 @@ int PawnTest(
 int LongRock(char a[][8], int b[][8], int wb)
 {
     if (wb) {
-        if (b[7][4] == 1 && a[7][4] == 'K' && b[7][0] == 1 && a[7][0] == 'R'
-            && a[7][3] != '.' && a[7][2] != '.' && a[7][1] != '.') {
-            b[7][4] = 0;
-            b[7][0] = 0;
-            a[7][2] = 'K';
-            a[7][3] = 'R';
-            a[7][4] = '.';
-            a[7][0] = '.';
-            return 1;
-        }
+        if (b[7][4] != 1 || a[7][4] != 'K')
+            return 2;
+        if (b[7][0] != 1 || a[7][0] != 'R')
+            return 3;
+        if (a[7][3] != '.' || a[7][2] != '.' || a[7][1] != '.')
+            return 4;
+        b[7][4] = 0;
+        b[7][0] = 0;
+        a[7][2] = 'K';
+        a[7][3] = 'R';
+        a[7][4] = '.';
+        a[7][0] = '.';
+        return 1;
+
     } else {
-        if (b[0][4] == 1 && a[0][4] == 'k' && b[0][0] == 1 && a[0][0] == 'r'
-            && a[0][3] == '.' && a[0][2] == '.' && a[0][1] == '.') {
-            b[0][4] = 0;
-            b[0][0] = 0;
-            a[0][2] = 'k';
-            a[0][3] = 'r';
-            a[0][4] = '.';
-            a[0][0] = '.';
-            return 1;
-        }
+        if (b[0][4] != 1 || a[0][4] != 'k')
+            return 2;
+        if (b[0][0] != 1 || a[0][0] != 'r')
+            return 3;
+        if (a[0][3] != '.' || a[0][2] != '.' || a[0][1] != '.')
+            return 4;
+        b[0][4] = 0;
+        b[0][0] = 0;
+        a[0][2] = 'k';
+        a[0][3] = 'r';
+        a[0][4] = '.';
+        a[0][0] = '.';
+        return 1;
     }
     return 0;
 }
 int ShortRock(char a[][8], int b[][8], int wb)
 {
     if (wb) {
-        if (b[7][4] == 1 && a[7][4] == 'K' && b[7][7] == 1 && a[7][7] == 'R'
-            && a[7][6] == '.' && a[7][5] == '.') {
-            b[7][4] = 0;
-            b[7][7] = 0;
-            a[7][6] = 'K';
-            a[7][5] = 'R';
-            a[7][4] = '.';
-            a[7][7] = '.';
-            return 1;
-        }
+        if (b[7][4] != 1 || a[7][4] != 'K')
+            return 2;
+        if (b[7][7] != 1 || a[7][7] != 'R')
+            return 3;
+        if (a[7][6] != '.' || a[7][5] != '.')
+            return 4;
+        b[7][4] = 0;
+        b[7][7] = 0;
+        a[7][6] = 'K';
+        a[7][5] = 'R';
+        a[7][4] = '.';
+        a[7][7] = '.';
+        return 1;
+
     } else {
-        if (b[0][4] == 1 && a[0][4] == 'k' && b[0][7] == 1 && a[0][7] == 'r'
-            && a[0][6] == '.' && a[0][5] == '.') {
-            b[0][4] = 0;
-            b[0][7] = 0;
-            a[0][6] = 'k';
-            a[0][5] = 'r';
-            a[0][4] = '.';
-            a[0][7] = '.';
-            return 1;
-        }
+        if (b[0][4] != 1 || a[0][4] != 'k')
+            return 2;
+        if (b[0][7] != 1 || a[0][7] != 'r')
+            return 3;
+        if (a[0][6] != '.' || a[0][5] != '.')
+            return 4;
+        b[0][4] = 0;
+        b[0][7] = 0;
+        a[0][6] = 'k';
+        a[0][5] = 'r';
+        a[0][4] = '.';
+        a[0][7] = '.';
+        return 1;
     }
     return 0;
 }
