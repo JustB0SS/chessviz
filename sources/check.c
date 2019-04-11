@@ -276,6 +276,28 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
            y,
            xt,
            yt);
+    if (fw == board[x][y]) {
+        switch (fw) {
+        case 'N':
+            move = KnightTest(board, x, y, xt, yt, attackW, 1);
+            break;
+        case 'B':
+            move = BishopTest(board, x, y, xt, yt, attackW, 1);
+            break;
+        case 'Q':
+            move = QueenTest(board, x, y, xt, yt, attackW, 1);
+            break;
+        case 'K':
+            move = KingTest(board, x, y, xt, yt, attackW, 1);
+            break;
+        case 'R':
+            move = RockTest(board, x, y, xt, yt, attackW, 1);
+            break;
+        case 'P':
+            move = PawnTest(board, x, y, xt, yt, attackW, 1);
+            break;
+        }
+    }
     x = fromxb - 48, y = fromyb - 96, xt = toxb - 48, yt = toyb - 96;
     x = 8 - x;
     y--;
@@ -287,4 +309,26 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
            y,
            xt,
            yt);
+    if (fb == board[x][y]) {
+        switch (fb) {
+        case 'n':
+            move = KnightTest(board, x, y, xt, yt, attackB, 0);
+            break;
+        case 'b':
+            move = BishopTest(board, x, y, xt, yt, attackB, 0);
+            break;
+        case 'q':
+            move = QueenTest(board, x, y, xt, yt, attackB, 0);
+            break;
+        case 'k':
+            move = KingTest(board, x, y, xt, yt, attackB, 0);
+            break;
+        case 'r':
+            move = RockTest(board, x, y, xt, yt, attackB, 0);
+            break;
+        case 'p':
+            move = PawnTest(board, x, y, xt, yt, attackB, 0);
+            break;
+        }
+    }
 }
