@@ -178,14 +178,16 @@ int PawnTest(
 {
     int x = (tx - fx), y = (ty - fy), k = 1;
     if (x > 0 && wb)
-        return 0;
+        return 5;
     else if (x < 0 && !wb)
-        return 0;
+        return 5;
     if (abs(x) == 1 && !atk && y == 0) {
         if (a[tx][ty] == '.')
             return 1;
     }
-    if (abs(x) == 2 && !atk && y == 0 && b[fx][fy] == 1) {
+    if (abs(x) == 2 && !atk && y == 0) {
+        if (b[fx][fy] != 1)
+            return 6;
         if (x < 0)
             k = -k;
         if (a[tx - k][ty] != '.')

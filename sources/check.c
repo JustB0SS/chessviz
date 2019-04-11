@@ -304,7 +304,7 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
             move = RookTest(board, x, y, xt, yt, attackW, 1);
             break;
         case 'P':
-            move = PawnTest(board, bcheck, x, y, xt, yt, attackB, 1);
+            move = PawnTest(board, bcheck, x, y, xt, yt, attackW, 1);
             break;
         }
     } else {
@@ -317,21 +317,24 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
     }
     switch (move) {
     case 0:
-        printf("ERROR wrong move %s%s\n", s, sw);
+        printf("ERROR wrong move in string %s%s\n", s, sw);
         break;
     case 1:
         board[x][y] = '.';
         board[xt][yt] = fw;
-        bcheck[x][y] = 0;
+        // bcheck[x][y] = 0;
         break;
     case 2:
-        printf("ERROR wrong move or attack %s%s\n", s, sw);
+        printf("ERROR wrong move or attack  in string %s%s\n", s, sw);
         break;
     case 3:
-        printf("ERROR on path find enemy %s%s\n", s, sw);
+        printf("ERROR on path find enemy  in string %s%s\n", s, sw);
         break;
-    case 4:
-
+    case 5:
+        printf("ERROR wrong order of move in string %s%s\n", s, sw);
+        break;
+    case 6:
+        printf("ERROR wrong move of Pawn in string %s%s\n", s, sw);
         break;
     }
     outputHTML(board, s, sw);
@@ -385,14 +388,21 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
         case 1:
             board[x][y] = '.';
             board[xt][yt] = fb;
-            bcheck[x][y] = 0;
-            bcheck[xt][yt] = 0;
+            // bcheck[x][y] = 0;
+            // bcheck[xt][yt] = 0;
             break;
         case 2:
             printf("ERROR wrong move or attack in string %s%s\n", s, sb);
             break;
         case 3:
             printf("ERROR on path find enemy in string %s%s\n", s, sb);
+            break;
+        case 5:
+            printf("ERROR wrong order of move in string %s%s\n", s, sb);
+            break;
+        case 6:
+            printf("ERROR wrong move of Pawn in string %s%s\n", s, sb);
+            break;
         }
         outputHTML(board, s, sb);
     }
