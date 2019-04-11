@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <string.h>
 
-void print(char board[8][8], char* s, char* str);
 void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8]);
 
 #endif

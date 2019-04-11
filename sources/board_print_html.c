@@ -8,7 +8,7 @@ void outputHTML(char output_board[][8], char str_num[], char str_info[])
     fprintf(output_html_write,
             "\n"
             R"(<table class="chessboard">)"
-            "<caption>%s%s</caption>",
+            "<caption>%s %s</caption>",
             str_num,
             str_info);
     for (int i = 0; i < 8; i++) {
