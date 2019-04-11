@@ -12,8 +12,16 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
     char fromxw, fromyw, toxw, toyw, fromxb, fromyb, toxb, toyb;
 
     switch (strlen(sw)) {
+    case 3:
+        if (strcmp(sw, "O-O") == 0) {
+            rk = 1;
+        }
+        break;
     case 5:
-        if (sw[0] >= 'a' && sw[0] <= 'h')
+        if (strcmp(sw, "O-O-O") == 0) {
+            rk = 1;
+            break;
+        } else if (sw[0] >= 'a' && sw[0] <= 'h')
             fromyw = sw[0];
         else {
             printf("ERROR expected a b c d e f g h found %c\n", sw[0]);
@@ -134,6 +142,7 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
     default:
         exit(1);
     }
+    // Black
     if (!mat) {
         switch (strlen(sb)) {
         case 3:
@@ -270,7 +279,14 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
     y--;
     xt = 8 - xt;
     yt--;
-    if (fw == board[x][y]) {
+    if (rk == 1) {
+        if (LongRock(board, bcheck, 1)) {
+            move = 4;
+        }
+        if (ShortRock(board, bcheck, 1)) {
+            move = 4;
+        }
+    } else if (fw == board[x][y]) {
         switch (fw) {
         case 'N':
             move = KnightTest(board, x, y, xt, yt, attackW, 1);
@@ -314,6 +330,9 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
     case 3:
         printf("ERROR on path find enemy %s%s\n", s, sw);
         break;
+    case 4:
+
+        break;
     }
     outputHTML(board, s, sw);
     if (strlen(sb) != 0 && !mat) {
@@ -323,7 +342,14 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
         y--;
         xt = 8 - xt;
         yt--;
-        if (fb == board[x][y]) {
+        if (rk == 1) {
+            if (LongRock(board, bcheck, 0)) {
+                move = 4;
+            }
+            if (ShortRock(board, bcheck, 0)) {
+                move = 4;
+            }
+        } else if (fb == board[x][y]) {
             switch (fb) {
             case 'n':
                 move = KnightTest(board, x, y, xt, yt, attackB, 0);
@@ -369,5 +395,4 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
         }
         outputHTML(board, s, sb);
     }
-}
 }
