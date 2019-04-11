@@ -1,4 +1,17 @@
+#include "check.h"
 
+void print(char board[8][8], char* s, char* str)
+{
+    printf("%s %s\n", s, str);
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (board[i][j] == '.')
+                printf(" ");
+            else
+                printf("%c", board[i][j]);
+        }
+    }
+}
 
 void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
 {
@@ -270,12 +283,7 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
     y--;
     xt = 8 - xt;
     yt--;
-    printf("line %s pars on from(%d%d),and to(%d%d) direction\n",
-           sw,
-           x,
-           y,
-           xt,
-           yt);
+
     if (fw == board[x][y]) {
         switch (fw) {
         case 'N':
@@ -297,18 +305,41 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
             move = PawnTest(board, x, y, xt, yt, attackW, 1);
             break;
         }
+    } else {
+        printf("ERROR false figure %c expected %c in string %s%s\n",
+               board[x][y],
+               fw,
+               s,
+               sw);
+        exit(1);
     }
+
+    switch (move) {
+    case 0:
+        printf("ERROR wrong move %s%s\n", s, sw);
+        break;
+    case 1:
+        board[x][y] = '.';
+        board[xt][yt] = fw;
+        bcheck[x][y] = 0;
+        break;
+    case 2:
+        printf("ERROR wrong move or attack %s%s\n", s, sw);
+        break;
+    case 3:
+        printf("ERROR on path find enemy %s%s\n", s, sw);
+        break;
+    case 4:
+
+        break;
+    }
+    print(board, s, sb);
     x = fromxb - 48, y = fromyb - 96, xt = toxb - 48, yt = toyb - 96;
     x = 8 - x;
     y--;
     xt = 8 - xt;
     yt--;
-    printf("line %s pars on from(%d%d),and to(%d%d) direction\n",
-           sb,
-           x,
-           y,
-           xt,
-           yt);
+
     if (fb == board[x][y]) {
         switch (fb) {
         case 'n':
@@ -330,5 +361,29 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
             move = PawnTest(board, x, y, xt, yt, attackB, 0);
             break;
         }
+    } else {
+        printf("ERROR false figure %c expected %c in string %s%s\n",
+               board[x][y],
+               fb,
+               s,
+               sb);
+        exit(1);
     }
+
+    switch (move) {
+    case 0:
+        printf("ERROR wrong move in string %s%s\n", s, sb);
+        break;
+    case 1:
+        board[x][y] = '.';
+        board[xt][yt] = fb;
+        bcheck[x][y] = 0;
+        break;
+    case 2:
+        printf("ERROR wrong move or attack in string %s%s\n", s, sb);
+        break;
+    case 3:
+        printf("ERROR on path find enemy in string %s%s\n", s, sb);
+    }
+    print(board, s, sb);
 }
