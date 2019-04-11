@@ -1,4 +1,5 @@
 bin/main
 chessviz.html
-build/*
+build/*.d
+build/*.o
 testTXT/
