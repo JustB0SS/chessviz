@@ -290,9 +290,9 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
         case 'K':
             move = KingTest(board, x, y, xt, yt, attackW, 1);
             break;
-        // case 'R':
-        //     move = RockTest(board, x, y, xt, yt, attackW, 1);
-        //     break;
+        case 'R':
+            move = RockTest(board, x, y, xt, yt, attackW, 1);
+            break;
         case 'P':
             move = PawnTest(board, x, y, xt, yt, attackW, 1);
             break;
@@ -323,9 +323,9 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
         case 'k':
             move = KingTest(board, x, y, xt, yt, attackB, 0);
             break;
-        // case 'r':
-        //     move = RockTest(board, x, y, xt, yt, attackB, 0);
-        //     break;
+        case 'r':
+            move = RockTest(board, x, y, xt, yt, attackB, 0);
+            break;
         case 'p':
             move = PawnTest(board, x, y, xt, yt, attackB, 0);
             break;

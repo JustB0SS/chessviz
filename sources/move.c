@@ -1,5 +1,45 @@
 #include "move.h"
 
+int RockTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
+{
+    int x = (tx - fx), y = (ty - fy), k = 1, i;
+    if (x == 0) {
+        if (y < 0)
+            k = -k;
+        if (abs(y) > 1) {
+            for (i = fy + k; i != ty - k; i += k) {
+                if (a[fx][i] != '.')
+                    return 3;
+            }
+        }
+        if (a[tx][ty] == '.' && !atk)
+            return 1;
+        if (a[tx][ty] != '.' && atk
+            && ((wb && a[tx][ty] > 97) || (!wb && a[tx][ty] < 97)))
+            return 1;
+    } else if (y == 0) {
+        if (x < 0)
+            k = -k;
+        if (abs(x) > 1) {
+            for (i = fx + k; i != tx - k; i += k) {
+                if (a[i][fy] != '.')
+                    return 3;
+            }
+        }
+
+        if (a[tx][ty] == '.' && !atk)
+            return 1;
+        else if (
+                a[tx][ty] != '.' && atk
+                && ((wb && a[tx][ty] > 97) || (!wb && a[tx][ty] < 97)))
+            return 1;
+        else
+            return 2;
+    } else
+        return 0;
+    return 0;
+}
+
 int KnightTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
 {
     int x = abs(tx - fx), y = abs(ty - fy);
