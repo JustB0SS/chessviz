@@ -278,9 +278,9 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
            yt);
     if (fw == board[x][y]) {
         switch (fw) {
-        // case 'N':
-        //     move = KnightTest(board, x, y, xt, yt, attackW, 1);
-        //     break;
+        case 'N':
+            move = KnightTest(board, x, y, xt, yt, attackW, 1);
+            break;
         // case 'B':
         //     move = BishopTest(board, x, y, xt, yt, attackW, 1);
         //     break;
@@ -311,9 +311,9 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
            yt);
     if (fb == board[x][y]) {
         switch (fb) {
-        // case 'n':
-        //     move = KnightTest(board, x, y, xt, yt, attackB, 0);
-        //     break;
+        case 'n':
+            move = KnightTest(board, x, y, xt, yt, attackB, 0);
+            break;
         // case 'b':
         //     move = BishopTest(board, x, y, xt, yt, attackB, 0);
         //     break;

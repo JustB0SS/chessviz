@@ -1,5 +1,25 @@
 #include "move.h"
 
+int KnightTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
+{
+    int x = abs(tx - fx), y = abs(ty - fy);
+    if (x == 2 && y == 1 && a[tx][ty] == '.' && !atk)
+        return 1;
+    else if (x == 1 && y == 2 && a[tx][ty] == '.' && !atk)
+        return 1;
+    else if (
+            x == 2 && y == 1 && a[tx][ty] != '.' && atk
+            && ((wb && a[tx][ty] > 97) || (!wb && a[tx][ty] < 97)))
+        return 1;
+    else if (
+            x == 1 && y == 2 && a[tx][ty] != '.' && atk
+            && ((wb && a[tx][ty] > 97) || (!wb && a[tx][ty] < 97)))
+        return 1;
+    else
+        return 2;
+    return 0;
+}
+
 int KingTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
 {
     if (a[tx][ty] == '.' && !atk)
