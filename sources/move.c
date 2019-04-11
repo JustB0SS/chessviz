@@ -151,6 +151,9 @@ int KnightTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
 
 int KingTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
 {
+    int x = abs(tx - fx), y = abs(ty - fy);
+    if (x > 1 || y > 1)
+        return 0;
     if (a[tx][ty] == '.' && !atk)
         return 1;
     if (a[tx][ty] != '.' && atk

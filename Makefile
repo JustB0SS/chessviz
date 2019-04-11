@@ -5,6 +5,7 @@ FLAGS = -std=gnu11 -Wall -Werror
 
 all: bin/main
 
+test: bin/main-test
 
 -include build/*.d
 
@@ -22,6 +23,20 @@ build/check.o: sources/check.c
 
 build/move.o: sources/move.c
 	$(COMPILER) $(FLAGS) -MMD -c -o $@ $< # Имя цели | Имя первой зависимости обрабатываемого правила
+
+-include build-test/*.d
+
+bin/main-test: build-test/main.o build-test/move.o build-test/tests.o
+	$(COMPILER) $(FLAGS) -o $@ $^
+
+build-test/main.o: test/main.c
+	$(COMPILER) -I thirdparty -I sources $(FLAGS) -MMD -c -o $@ $<
+
+build-test/tests.o: test/tests.c
+	$(COMPILER) -I thirdparty -I sources $(FLAGS) -MMD -c -o $@ $<
+
+build-test/move.o: sources/move.c
+	$(COMPILER) -I thirdparty -I sources $(FLAGS) -MMD -c -o $@ $<
 
 
 start: bin/main
