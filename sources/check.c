@@ -367,7 +367,7 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
                 move = RockTest(board, x, y, xt, yt, attackB, 0);
                 break;
             case 'p':
-                move = PawnTest(board, x, y, xt, yt, attackB, 0);
+                move = PawnTest(board, bcheck, x, y, xt, yt, attackB, 0);
                 break;
             }
         } else {
@@ -386,6 +386,7 @@ void Check(char board[8][8], char* s, char* sw, char* sb, int bcheck[8][8])
             board[x][y] = '.';
             board[xt][yt] = fb;
             bcheck[x][y] = 0;
+            bcheck[xt][yt] = 0;
             break;
         case 2:
             printf("ERROR wrong move or attack in string %s%s\n", s, sb);

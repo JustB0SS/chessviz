@@ -164,7 +164,15 @@ int KingTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
     return 0;
 }
 
-int PawnTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
+int PawnTest(
+        char a[][8],
+        int b[][8],
+        int fx,
+        int fy,
+        int tx,
+        int ty,
+        int atk,
+        int wb)
 {
     int x = (tx - fx), y = (ty - fy), k = 1;
     if (x > 0 && wb)
@@ -175,9 +183,9 @@ int PawnTest(char a[][8], int fx, int fy, int tx, int ty, int atk, int wb)
         if (a[tx][ty] == '.')
             return 1;
     }
-    if (x < 0)
-        k = -k;
-    if (abs(x) == 2 && !atk && y == 0) {
+    if (abs(x) == 2 && !atk && y == 0 && b[fx][fy] == 1) {
+        if (x < 0)
+            k = -k;
         if (a[tx - k][ty] != '.')
             return 3;
         if (a[tx][ty] == '.')
