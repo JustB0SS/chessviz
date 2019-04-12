@@ -13,7 +13,7 @@ bin/main: build/main.o build/board_print_html.o build/check.o build/move.o
 	$(COMPILER) $(FLAGS) -o $@ $^ 
 
 build/main.o: sources/main.c
-	$(COMPILER) $(FLAGS) -MMD -c -o $@ $<а
+	$(COMPILER) $(FLAGS) -MMD -c -o $@ $<
 
 build/board_print_html.o: sources/board_print_html.c
 	$(COMPILER) $(FLAGS) -MMD -c -o $@ $<
