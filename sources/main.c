@@ -87,8 +87,8 @@ int main(int argc, char* argv[])
     case 2:
         input = fopen(argv[1], "a+");
         while (!feof(input)) {
-            char sw[10] = "", sb[10] = "", str[2] = "";
-            fscanf(input, "%s %s %s", str, sw, sb);
+            char sw[20] = "", sb[20] = "", str[20] = "";
+            fscanf(input,"%s%s%s", str, sw, sb);
             Check(board, str, sw, sb, bcheck);
         }
         break;

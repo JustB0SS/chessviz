@@ -15,7 +15,7 @@ CTEST(king, black_angle)
                         {'.', '.', '.', '.', '.', '.', '.', '.'},
                         {'.', '.', '.', '.', '.', '.', '.', '.'}};
 
-    ASSERT_EQUAL(1, KingTest(board, 0, 0, 1, 1, 0, 0));
+    ASSERT_EQUAL(0, KingTest(board, 0, 0, 1, 1, 0, 0));
 }
 
 CTEST(king, black_edge)

@@ -10,19 +10,19 @@ test: bin/main-test
 -include build/*.d
 
 bin/main: build/main.o build/board_print_html.o build/check.o build/move.o 
-	$(COMPILER) $(FLAGS) -o $@ $^ #Список всех зависимостей обрабатываемого правила
+	$(COMPILER) $(FLAGS) -o $@ $^ 
 
 build/main.o: sources/main.c
-	$(COMPILER) $(FLAGS) -MMD -c -o $@ $< # Имя цели | Имя первой зависимости обрабатываемого правила
+	$(COMPILER) $(FLAGS) -MMD -c -o $@ $<а
 
 build/board_print_html.o: sources/board_print_html.c
-	$(COMPILER) $(FLAGS) -MMD -c -o $@ $< # Имя цели | Имя первой зависимости обрабатываемого правила
+	$(COMPILER) $(FLAGS) -MMD -c -o $@ $<
 
 build/check.o: sources/check.c
-	$(COMPILER) $(FLAGS) -MMD -c -o $@ $< # Имя цели | Имя первой зависимости обрабатываемого правила
+	$(COMPILER) $(FLAGS) -MMD -c -o $@ $< 
 
 build/move.o: sources/move.c
-	$(COMPILER) $(FLAGS) -MMD -c -o $@ $< # Имя цели | Имя первой зависимости обрабатываемого правила
+	$(COMPILER) $(FLAGS) -MMD -c -o $@ $< 
 
 -include build-test/*.d
 
